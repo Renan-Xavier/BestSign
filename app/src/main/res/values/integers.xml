@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default and max lengths -->
+    <integer name="strong_password_length">32</integer>
+    <integer name="medium_password_length">12</integer>
+    <integer name="weak_password_length">4</integer>
+</resources>

@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Bestsign · Apresentação MVP Sprint 1</title>
+<style>
+:root {
+  --acento: #e40f37;        /* cor principal: títulos, destaques, setas */
+  --acento-escuro: #b90c2d;
+  --tinta: #221f1f;         /* texto */
+  --suave: #686970;         /* texto secundário */
+  --linha: #dedee6;         /* bordas */
+  --fundo-claro: #f7f6f8;   /* caixas cinza */
+  --cinza: #6b6872;         /* etiqueta "antes" */
+}
+@page { size: 338.67mm 190.5mm; margin: 10mm 14mm 11mm;
+  @bottom-left { content: "Bestsign · Renan Santa Rosa Xavier (RM566997)"; font: 9pt "Segoe UI", Arial, sans-serif; color: #989aa3; }
+  @bottom-right { content: counter(page) " / " counter(pages); font: 9pt "Segoe UI", Arial, sans-serif; color: #989aa3; } }
+* { box-sizing: border-box; }
+html { font-size: 13pt; }
+body { margin: 0; color: var(--tinta); font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+img { max-width: 100%; }
+
+/* estrutura de todo slide */
+.slide { height: 168mm; break-after: page; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+.slide:last-child { break-after: auto; }
+.slide > h2 { font-size: 26pt; margin: 0 0 3px; padding-left: 14px; border-left: 7px solid var(--acento); line-height: 1.15; padding-right: 45mm; }
+.slide > .sub { color: var(--suave); font-size: 13.5pt; margin: 0 0 12px 21px; padding-right: 45mm; }
+.corpo { flex: 1; min-height: 0; }
+
+/* logo no cabeçalho */
+.logo-cabecalho { position: absolute; top: 1mm; right: 0; height: 11mm; width: auto; object-fit: contain; }
+.logo-capa { height: 15mm; width: auto; object-fit: contain; display: block; margin-bottom: 14px; margin-left: -4px; }
+
+/* lugar de imagem (troque por <img>) */
+.ph { display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; border: 2px dashed #c9c8d2; border-radius: 12px; background: repeating-linear-gradient(135deg, #fafafb 0 14px, #f3f2f6 14px 28px); color: #8a8791; font-size: 11pt; }
+.print { border-radius: 10px; border: 1px solid #cfced8; box-shadow: 0 8px 22px rgba(34, 31, 31, .14); display: block; }
+
+/* 1. capa */
+.capa { display: grid !important; grid-template-columns: 1fr 150mm; gap: 12mm; align-items: center; }
+.capa .marca { font-weight: 800; letter-spacing: 3px; color: var(--acento); font-size: 13pt; margin-bottom: 22px; }
+.capa h1 { font-size: 52pt; line-height: 1.05; margin: 0 0 14px; letter-spacing: -1px; }
+.capa .lead { font-size: 19pt; color: #3c3a40; margin: 0; }
+.capa .data { color: var(--suave); margin-top: 24px; }
+
+/* divisória de seção */
+.divisoria { justify-content: center; }
+.divisoria .n { font-size: 70pt; font-weight: 800; color: var(--acento); line-height: 1; }
+.divisoria h2 { font-size: 36pt; border: 0; padding: 0; margin: 6px 0 10px; }
+.divisoria p { font-size: 17pt; max-width: 220mm; color: #3c3a40; }
+
+/* imagem grande */
+.grande { display: flex; align-items: center; justify-content: center; }
+.grande .ph, .grande img { height: 128mm; width: 100%; object-fit: contain; }
+
+/* cartões */
+.cartoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-content: center; }
+.cartoes.quatro { grid-template-columns: repeat(4, 1fr); }
+.cartao { border: 1px solid var(--linha); border-top: 6px solid var(--acento); border-radius: 14px; padding: 18px 20px; background: #fff; }
+.cartao .icone { width: 52px; height: 52px; border-radius: 14px; background: var(--acento); color: #fff; display: grid; place-items: center; font-size: 22pt; font-weight: 800; margin-bottom: 12px; }
+.cartao h3 { margin: 0 0 6px; font-size: 17pt; }
+.cartao p { margin: 0; color: #3c3a40; font-size: 13.5pt; }
+
+/* fluxo em passos */
+.fluxo { display: flex; align-items: stretch; gap: 10px; align-self: center; width: 100%; }
+.fluxo .passo { flex: 1; border: 1px solid var(--linha); border-radius: 14px; padding: 16px; background: #fff; text-align: center; }
+.fluxo .passo b { display: block; font-size: 30pt; color: var(--acento); line-height: 1; margin-bottom: 8px; }
+.fluxo .passo strong { display: block; font-size: 15pt; margin-bottom: 4px; }
+.fluxo .passo span { color: var(--suave); font-size: 12pt; }
+.fluxo .seta { align-self: center; color: var(--acento); font-size: 26pt; font-weight: 800; }
+
+/* antes x depois */
+.lados { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: start; }
+.lado { border: 1px solid var(--linha); border-radius: 14px; padding: 16px 20px; background: #fff; }
+.lado.antes { background: var(--fundo-claro); }
+.lado.depois { border-top: 6px solid var(--acento); }
+.chip { display: inline-block; font-size: 10pt; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 3px 12px; border-radius: 999px; color: #fff; background: var(--acento); margin-bottom: 10px; }
+.antes .chip { background: var(--cinza); }
+.lado ul { margin: 0; padding-left: 22px; font-size: 16pt; }
+.lado li { margin: 10px 0; }
+.lado .ph { height: 62mm; margin-top: 10px; }
+
+/* números grandes */
+.numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-content: center; }
+.numeros div { border-radius: 16px; padding: 22px; background: var(--fundo-claro); border: 1px solid var(--linha); color: var(--suave); font-size: 13pt; }
+.numeros strong { display: block; font-size: 44pt; color: var(--tinta); line-height: 1.05; margin-bottom: 6px; }
+.numeros div:first-child { background: var(--acento); color: #fff; border-color: var(--acento); }
+.numeros div:first-child strong { color: #fff; }
+
+/* telas lado a lado */
+.telas { display: flex; gap: 10mm; justify-content: center; align-items: flex-start; }
+.telas figure { margin: 0; text-align: center; flex: 0 1 auto; min-width: 0; }
+.telas .ph, .telas img { height: 112mm; width: 54mm; margin: 0 auto; border-radius: 6mm; object-fit: contain; }
+.telas figcaption { margin-top: 10px; font-size: 12pt; max-width: 70mm; }
+.telas figcaption b { display: block; font-size: 13.5pt; }
+
+/* diagrama */
+.diagrama { display: flex; align-items: center; justify-content: center; }
+.diagrama svg { width: 100%; max-height: 140mm; font-family: "Segoe UI", Arial, sans-serif; }
+
+/* frase de destaque */
+.destaque { justify-content: center; padding: 0 30mm; }
+.destaque blockquote { margin: 0; font-size: 34pt; line-height: 1.25; font-weight: 650; border-left: 10px solid var(--acento); padding-left: 26px; }
+.destaque .quem { margin: 18px 0 0 36px; color: var(--suave); font-size: 15pt; }
+
+/* próximos passos */
+.passos { list-style: none; counter-reset: p; padding: 0; margin: 6px 0 0; display: grid; gap: 14px; align-content: start; }
+.passos li { counter-increment: p; display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 14px; font-size: 17pt; border: 1px solid var(--linha); border-radius: 14px; padding: 12px 18px; background: #fff; }
+.passos li::before { content: counter(p); width: 44px; height: 44px; border-radius: 22px; background: var(--acento); color: #fff; font-weight: 800; display: grid; place-items: center; }
+.passos small { display: block; color: var(--suave); font-size: 12pt; }
+
+/* encerramento */
+.fim { justify-content: center; align-items: center; text-align: center; }
+.fim h2 { border: 0; padding: 0; font-size: 46pt; }
+.fim p { font-size: 16pt; color: var(--suave); }
+</style>
+</head>
+<body>
+
+<!-- 1 · CAPA -->
+<section class="slide capa">
+  <div>
+    <img class="logo-capa" src="logo_fiap.png" alt="Logo FIAP">
+    <div class="marca">ANÁLISE E DESENVOLVIMENTO DE SISTEMAS</div>
+    <h1>Bestsign</h1>
+    <p class="lead">Envio, posicionamento de campos e assinatura de documentos PDF pelo celular.</p>
+    <p class="data">Renan Santa Rosa Xavier · RM 566997 · MVP Sprint 1</p>
+  </div>
+  <div class="telas" style="align-items:center">
+    <img class="print" src="tela_02_painel_admin.png" alt="Painel do Administrador" style="height:142mm;width:auto">
+    <img class="print" src="tela_11_assinatura_pdf.png" alt="Assinatura no PDF" style="height:142mm;width:auto">
+  </div>
+</section>
+
+<!-- 2 · ANTES E DEPOIS: O PROBLEMA -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Dificuldades na assinatura pelo celular</h2>
+  <p class="sub">O que acontece hoje e como o aplicativo resolve.</p>
+  <div class="corpo lados">
+    <div class="lado antes"><span class="chip">Hoje</span>
+      <ul>
+        <li>Pessoas com pouca prática não acham onde assinar no PDF.</li>
+        <li>Usuários compartilham a mesma conta por falta de login próprio.</li>
+        <li>Signatário assina sem saber seu papel no contrato.</li>
+        <li>Quem envia não acompanha quem já assinou ou falta assinar.</li>
+      </ul>
+    </div>
+    <div class="lado depois"><span class="chip">Na proposta</span>
+      <ul>
+        <li>Botão no topo leva direto para a página e campo certos.</li>
+        <li>Login individual por e-mail e senha para cada signatário.</li>
+        <li>Papel no contrato e mensagem aparecem antes de abrir o PDF.</li>
+        <li>Status e histórico atualizam a cada assinatura coletada.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · DESTAQUE -->
+<section class="slide destaque">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <blockquote>Qualquer pessoa encontra seu campo e assina o PDF no celular sem depender de ajuda técnica.</blockquote>
+  <p class="quem">Foco em usabilidade para leigos e fim do compartilhamento de senhas</p>
+</section>
+
+<!-- 4 · FLUXO -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Fluxo do documento em passos</h2>
+  <p class="sub">Do cadastro pelo administrador até a gravação no PDF.</p>
+  <div class="corpo" style="display:flex;align-items:center">
+    <div class="fluxo">
+      <div class="passo"><b>1</b><strong>Upload do PDF</strong><span>Valida páginas e define signatários</span></div><div class="seta">→</div>
+      <div class="passo"><b>2</b><strong>Posição na folha</strong><span>Arrasta quadros sobre a página</span></div><div class="seta">→</div>
+      <div class="passo"><b>3</b><strong>Desenho na tela</strong><span>Signatário assina no quadro Canvas</span></div><div class="seta">→</div>
+      <div class="passo"><b>4</b><strong>Gravação no PDF</strong><span>PDFBox estampa rubrica e data</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · DIAGRAMA DE ARQUITETURA -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Arquitetura local preparada para API</h2>
+  <p class="sub">Repositórios isolam o banco SQLite das telas do aplicativo.</p>
+  <div class="corpo diagrama">
+    <svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#e40f37"/></marker></defs>
+      <rect x="20" y="130" width="230" height="120" rx="18" fill="#fff" stroke="#221f1f" stroke-width="2"/>
+      <text x="135" y="185" text-anchor="middle" font-size="24" font-weight="700">Telas Android</text>
+      <text x="135" y="218" text-anchor="middle" font-size="17" fill="#686970">Compose e Canvas</text>
+
+      <rect x="375" y="110" width="250" height="160" rx="18" fill="#fff" stroke="#e40f37" stroke-width="3"/>
+      <text x="500" y="180" text-anchor="middle" font-size="24" font-weight="700">Repositórios</text>
+      <text x="500" y="212" text-anchor="middle" font-size="16" fill="#686970">SignatarioRepositorio</text>
+      <text x="500" y="236" text-anchor="middle" font-size="16" fill="#686970">DocumentoRepositorio</text>
+
+      <rect x="750" y="40" width="230" height="115" rx="18" fill="#f7f6f8" stroke="#dedee6" stroke-width="2"/>
+      <text x="865" y="92" text-anchor="middle" font-size="22" font-weight="700">Banco SQLite</text>
+      <text x="865" y="122" text-anchor="middle" font-size="16" fill="#686970">SignatarioDao e DocumentoDao</text>
+
+      <rect x="750" y="225" width="230" height="115" rx="18" fill="#f7f6f8" stroke="#dedee6" stroke-width="2"/>
+      <text x="865" y="277" text-anchor="middle" font-size="22" font-weight="700">PDFBox-Android</text>
+      <text x="865" y="307" text-anchor="middle" font-size="16" fill="#686970">PDF na memória interna</text>
+
+      <line x1="250" y1="190" x2="368" y2="190" stroke="#e40f37" stroke-width="4" marker-end="url(#seta)"/>
+      <line x1="625" y1="160" x2="744" y2="100" stroke="#e40f37" stroke-width="4" marker-end="url(#seta)"/>
+      <line x1="625" y1="220" x2="744" y2="282" stroke="#e40f37" stroke-width="4" marker-end="url(#seta)"/>
+    </svg>
+  </div>
+</section>
+
+<!-- 6 · DIVISÓRIA 01 -->
+<section class="slide divisoria">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <div class="n">01</div>
+  <h2>Visão do administrador</h2>
+  <p>Cadastro de signatários, validação do arquivo PDF, escolha de papéis e posicionamento dos campos.</p>
+</section>
+
+<!-- 7 · TELAS ADMIN: LOGIN, PAINEL E SIGNATARIOS -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Acesso, painel e signatários</h2>
+  <p class="sub">Login individual, resumo por status e cadastro com e-mail único.</p>
+  <div class="corpo telas">
+    <figure><img class="print" src="tela_01_login.png" alt="Tela de Login"><figcaption><b>Login e testes</b>Acesso por senha e contas de demonstração.</figcaption></figure>
+    <figure><img class="print" src="tela_02_painel_admin.png" alt="Painel do Administrador"><figcaption><b>Painel do admin</b>Contadores e filtro por status do documento.</figcaption></figure>
+    <figure><img class="print" src="tela_03_signatarios.png" alt="Cadastro de Signatários"><figcaption><b>Signatários</b>Cadastro e edição de nome, telefone e senha.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 8 · TELAS ADMIN: UPLOAD, PAPEIS E POSICIONAMENTO -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Upload, papéis e posicionamento</h2>
+  <p class="sub">Validação do PDF, escolha do papel e quadros arrastáveis na página.</p>
+  <div class="corpo telas">
+    <figure><img class="print" src="tela_06_novo_documento_pdf.png" alt="Upload do PDF"><figcaption><b>Validação do PDF</b>Checa páginas válidas e exibe na tela.</figcaption></figure>
+    <figure><img class="print" src="tela_07_selecao_signatarios.png" alt="Seleção de Papéis"><figcaption><b>Papel no contrato</b>Define Contratante, Contratado ou Testemunha.</figcaption></figure>
+    <figure><img class="print" src="tela_08_posicionamento_campos.png" alt="Posicionamento no PDF"><figcaption><b>Posição na folha</b>Arrasta o quadro sobre a página do PDF.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 9 · TELAS ADMIN: REVISAO E BLOQUEIO -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Revisão e bloqueio pós-envio</h2>
+  <p class="sub">Conferência de campos obrigatórios e proteção contra edições após envio.</p>
+  <div class="corpo telas">
+    <figure><img class="print" src="tela_09_revisao_envio.png" alt="Revisão e Disparo"><figcaption><b>Revisão antes do envio</b>Confere campos por página e mensagem de convite.</figcaption></figure>
+    <figure><img class="print" src="tela_04_acompanhamento.png" alt="Acompanhamento e Bloqueio"><figcaption><b>Contrato bloqueado</b>Impede alterar PDF ou posições depois de enviado.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 10 · DIVISÓRIA 02 -->
+<section class="slide divisoria">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <div class="n">02</div>
+  <h2>Visão do signatário e auditoria</h2>
+  <p>Acesso restrito aos próprios documentos, destaque visual de onde assinar e gravação no arquivo PDF.</p>
+</section>
+
+<!-- 11 · TELAS SIGNATARIO: PAINEL, DESTAQUE E CANVAS -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Assinatura guiada no celular</h2>
+  <p class="sub">Visão exclusiva do signatário, botão direto para a página e desenho no Canvas.</p>
+  <div class="corpo telas">
+    <figure><img class="print" src="tela_10_painel_signatario.png" alt="Painel do Signatário"><figcaption><b>Meus documentos</b>Exibe papel no contrato e mensagem do remetente.</figcaption></figure>
+    <figure><img class="print" src="tela_11_assinatura_pdf.png" alt="Onde Assinar no PDF"><figcaption><b>Destaque na página</b>Botão de atalho no topo e quadro amarelo.</figcaption></figure>
+    <figure><img class="print" src="tela_12_quadro_canvas.png" alt="Quadro de Desenho Canvas"><figcaption><b>Desenho no Canvas</b>Traço livre com o dedo e botão limpar.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 12 · TELAS BIOMETRIA: ESCOLHA, DIGITAL E ASSINATURA POR EXTENSO -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Assinatura com digital do celular</h2>
+  <p class="sub">Escolha entre desenho manual ou biometria com preenchimento cursivo por extenso.</p>
+  <div class="corpo telas">
+    <figure><img class="print" src="tela_14_escolha_forma_assinatura.png" alt="Escolha da Forma de Assinatura"><figcaption><b>Escolha do modo</b>Popup oferece assinatura por digital ou manual.</figcaption></figure>
+    <figure><img class="print" src="tela_16_popup_sucesso_digital.png" alt="Popup de Sucesso da Digital"><figcaption><b>Confirmação rápida</b>Popup confirma a digital e fecha em 1,5 segundo.</figcaption></figure>
+    <figure><img class="print" src="tela_17_pdf_assinado_cursivo.png" alt="Assinatura por Extenso no PDF"><figcaption><b>Escrita por extenso</b>Nome completo em letra cursiva gravado no PDF.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 13 · TELAS AUDITORIA: PDF GRAVADO E HISTORICO -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Gravação no PDF e histórico</h2>
+  <p class="sub">Assinatura estampada no arquivo PDF e registro completo de auditoria.</p>
+  <div class="corpo telas">
+    <figure><img class="print" src="tela_05_acompanhamento_historico.png" alt="Assinatura Estampada no PDF"><figcaption><b>Gravado no PDF</b>Rubrica, nome, papel e horário dentro da página.</figcaption></figure>
+    <figure><img class="print" src="tela_13_historico_auditoria.png" alt="Histórico de Eventos"><figcaption><b>Histórico de eventos</b>Registra criação, envio e cada assinatura com data.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 13 · NUMEROS -->
+<section class="slide">
+  <img class="logo-cabecalho" src="logo_fiap.png" alt="Logo FIAP">
+  <h2>Estrutura entregue na Sprint 1</h2>
+  <p class="sub">Resumo do que foi implementado no aplicativo Android nativo.</p>
+  <div class="corpo numeros">
+    <div><strong>9</strong>telas nativas em português</div>
+    <div><strong>6</strong>tabelas no banco SQLite</div>
+    <div><strong>2</strong>repositórios isolando os dados</div>
+    <div><strong>3</strong>contas prontas para teste</div>
+  </div>
+</section>
+
+<!-- 14 · ENCERRAMENTO -->
+<section class="slide fim">
+  <img src="logo_fiap.png" alt="Logo FIAP" style="height:14mm;width:auto;margin-bottom:16px">
+  <h2>Obrigado</h2>
+  <p>Renan Santa Rosa Xavier · RM 566997 · Análise e Desenvolvimento de Sistemas</p>
+</section>
+
+</body>
+</html>
