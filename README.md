@@ -4,8 +4,19 @@
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-Material_3-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-API_24%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-Local_DB-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+[![YouTube Demo](https://img.shields.io/badge/YouTube-Demonstração_em_Vídeo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=xK8ZsPvU6fY)
 
 **Autor:** Renan Santa Rosa Xavier — RM566997
+
+---
+
+## 🎬 Demonstração em Vídeo do Aplicativo
+
+Veja na prática o funcionamento do BestSign com envio de documento, posicionamento de campos, assinatura com biometria e trilha de auditoria:
+
+[![Demonstração BestSign no YouTube](https://img.youtube.com/vi/xK8ZsPvU6fY/maxresdefault.jpg)](https://www.youtube.com/watch?v=xK8ZsPvU6fY)
+
+> 🔗 **Assistir no YouTube:** [Bestsign — Demonstração das Funções](https://www.youtube.com/watch?v=xK8ZsPvU6fY)
 
 ---
 
