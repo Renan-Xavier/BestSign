@@ -5,8 +5,9 @@
 ![Android](https://img.shields.io/badge/Android-API_24%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-Local_DB-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 [![YouTube Demo](https://img.shields.io/badge/YouTube-Demonstração_em_Vídeo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=xK8ZsPvU6fY)
+[![Portfólio](https://img.shields.io/badge/Portfólio-renan--xavier.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://renan-xavier.vercel.app)
 
-**Autor:** Renan Santa Rosa Xavier — RM566997
+**Autor:** Renan Santa Rosa Xavier — RM566997 | 🌐 **Portfólio:** [renan-xavier.vercel.app](https://renan-xavier.vercel.app)
 
 ---
 
