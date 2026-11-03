@@ -11,86 +11,110 @@
 
 ---
 
-## 🎬 Demonstração em Vídeo do Aplicativo
+## 📌 Visão Geral do Projeto
 
-Veja na prática o funcionamento do BestSign com envio de documento, posicionamento de campos, assinatura com biometria e trilha de auditoria:
+O **BestSign** é um aplicativo nativo para Android voltado à assinatura eletrônica segura e descomplicada de contratos PDF pelo smartphone.
+
+O projeto resolve o problema da baixa alfabetização digital e da burocracia na assinatura de contratos: permite ao administrador carregar um PDF, posicionar de forma proporcional os campos onde cada signatário deve assinar e enviá-lo. O signatário pode assinar via **autenticação biométrica do aparelho** (que gera um carimbo cursivo autenticado) ou desenhando manualmente na tela em um **Canvas dedicado**.
+
+---
+
+## 🎬 Demonstração do Sistema
+
+### Vídeo de Demonstração no YouTube
+Confira o fluxo completo do aplicativo no YouTube (envio do contrato, biometria e auditoria):
 
 [![Demonstração BestSign no YouTube](https://img.youtube.com/vi/xK8ZsPvU6fY/maxresdefault.jpg)](https://www.youtube.com/watch?v=xK8ZsPvU6fY)
 
 > 🔗 **Assistir no YouTube:** [Bestsign — Demonstração das Funções](https://www.youtube.com/watch?v=xK8ZsPvU6fY)
 
----
+### Galeria de Telas do Aplicativo
 
-## Visão Geral do Projeto
-
-### O Problema
-Processos de assinatura de contratos e documentos em formato PDF frequentemente enfrentam dois gargalos principais:
-1. **Dificuldade de usabilidade:** Signatários com pouca familiaridade tecnológica ou idade avançada muitas vezes não encontram onde devem assinar ou abandonam fluxos complexos.
-2. **Falta de isolamento e rastreabilidade:** Compartilhamento indevido de credenciais e ausência de clareza sobre o papel contratual (Contratante, Contratado ou Testemunha) e o histórico de auditoria do documento.
-
-### A Solução
-O **BestSign** é um aplicativo nativo Android voltado ao envio, posicionamento proporcional de campos, assinatura eletrônica (manuscrita em Canvas ou cursiva com autenticação biométrica) e acompanhamento completo de documentos PDF pelo celular.
-
----
-
-## Galeria de Telas do Aplicativo
-
-### 1. Autenticação, Painel Administrativo e Gestão de Signatários
+#### 1. Autenticação, Painel do Administrador e Signatários
 | Login Individual | Painel do Administrador | Gestão de Signatários |
 | :---: | :---: | :---: |
 | ![Tela de Login](apresentacao/tela_01_login.png) | ![Painel Admin](apresentacao/tela_02_painel_admin.png) | ![Signatários](apresentacao/tela_03_signatarios.png) |
 
-### 2. Criação do Documento, Posicionamento no PDF e Envio
+#### 2. Criação do Documento, Posicionamento no PDF e Envio
 | Upload / PDF Modelo | Seleção e Papéis | Posicionamento Proporcional | Revisão e Envio |
 | :---: | :---: | :---: | :---: |
 | ![Novo Documento](apresentacao/tela_06_novo_documento_pdf.png) | ![Seleção Signatários](apresentacao/tela_07_selecao_signatarios.png) | ![Posicionamento](apresentacao/tela_08_posicionamento_campos.png) | ![Revisão e Envio](apresentacao/tela_09_revisao_envio.png) |
 
-### 3. Experiência do Signatário: Biometria ou Desenho Manual em Canvas
+#### 3. Experiência do Signatário: Biometria ou Desenho Manual em Canvas
 | Painel do Signatário | Destaque no PDF | Escolha da Assinatura | Biometria Nativa | Desenho no Canvas |
 | :---: | :---: | :---: | :---: | :---: |
 | ![Painel Signatário](apresentacao/tela_10_painel_signatario.png) | ![Campo Destacado](apresentacao/tela_11_assinatura_pdf.png) | ![Modal Assinatura](apresentacao/tela_14_escolha_forma_assinatura.png) | ![Prompt Biométrico](apresentacao/tela_15_prompt_android.png) | ![Quadro Canvas](apresentacao/tela_12_quadro_canvas.png) |
 
-### 4. Confirmação, PDF Assinado e Trilha de Auditoria
+#### 4. Confirmação, PDF Assinado e Trilha de Auditoria
 | Confirmação Digital | PDF Assinado (Parcial) | PDF Concluído (Todos) | Histórico e Auditoria |
 | :---: | :---: | :---: | :---: |
 | ![Popup Sucesso](apresentacao/tela_16_popup_sucesso_digital.png) | ![PDF Parcial](apresentacao/tela_17_pdf_assinado_cursivo.png) | ![PDF Completo](apresentacao/tela_18_pdf_ambos_cursivo.png) | ![Histórico Auditoria](apresentacao/tela_13_historico_auditoria.png) |
 
 ---
 
-## Arquitetura e Tecnologias Utilizadas
+## 🏛️ Arquitetura da Solução
+
+O aplicativo segue o padrão Repository, separando a camada visual dos DAOs locais e dos serviços de arquivo:
 
 ```mermaid
-flowchart LR
-    UI["UI Layer\nJetpack Compose (Material 3)"] --> Repo["Repository Layer\nDocumentoRepositorio / SignatarioRepositorio"]
-    Repo --> DAO["Data Layer (SQLite)\nDocumentoDao / SignatarioDao"]
-    Repo --> PDF["PDF & Biometria\nPDFBox-Android + BiometricPrompt"]
-```
+flowchart TD
+    subgraph UI ["Camada de Interface (Jetpack Compose)"]
+        Nav["Navigation Compose\nControle de Rotas & Telas"]
+        Screens["LoginScreen / AdminScreen / SignatarioScreen / CanvasScreen"]
+    end
 
-- **Desenvolvimento:** Android Nativo em Kotlin com Jetpack Compose (Material 3 e Navigation Compose).
-- **Banco de Dados Local:** SQLite nativo (`SQLiteOpenHelper`) com DAOs dedicados (`SignatarioDao` e `DocumentoDao`).
-- **Arquitetura em Camadas:** Padrão Repository isolando o acesso ao banco local e ao sistema de arquivos.
-- **Manipulação de PDF e Assinatura:**
-  - `Canvas` nativo para captura do desenho manual da assinatura.
-  - Geração automática de assinatura cursiva por extenso após autenticação biométrica nativa (`BiometricPrompt`).
-  - `PDFBox-Android` (`com.tom-roush:pdfbox-android`) para renderização das páginas e gravação definitiva das assinaturas nas coordenadas proporcionais selecionadas.
+    subgraph Domain ["Camada de Negócio & Repositório"]
+        DocRepo["DocumentoRepositorio\nValidação de Status & Coordenadas"]
+        SigRepo["SignatarioRepositorio\nAutenticação & Perfis"]
+    end
+
+    subgraph Data ["Camada de Persistência (SQLite)"]
+        Helper["DatabaseHelper (SQLiteOpenHelper)"]
+        DocDao["DocumentoDao\nCRUD de Documentos & Trilhas"]
+        SigDao["SignatarioDao\nCredenciais & Papéis"]
+    end
+
+    subgraph Engine ["Processamento Nativo & Biometria"]
+        BioPrompt["BiometricPrompt (AndroidX Biometric)\nValidação Biométrica / Face / Digital"]
+        PdfBox["PDFBox-Android\nRenderização de Páginas & Gravação das Assinaturas"]
+    end
+
+    UI --> Domain
+    Domain --> Data
+    Domain --> Engine
+```
 
 ---
 
-## Credenciais de Teste Pré-Cadastradas
+## 🛠️ Tecnologias Utilizadas
 
-O banco de dados local já inicia pré-populado com 1 conta de Administrador, 2 contas de Signatários e 1 contrato PDF de demonstração:
+| Tecnologia | Finalidade no Aplicativo |
+| :--- | :--- |
+| **Kotlin 2.0** | Linguagem moderna e concisa para desenvolvimento Android nativo. |
+| **Jetpack Compose (Material 3)** | UI declarativa com componentes modernos do Material Design 3 e animações nativas. |
+| **Navigation Compose** | Gerenciamento de rotas e passagem de parâmetros entre telas no Compose. |
+| **SQLite Nativo (`SQLiteOpenHelper`)** | Banco de dados relacional embarcado com DAOs dedicados para signatários e documentos. |
+| **BiometricPrompt API** | Autenticação biométrica nativa do sistema operacional (impressão digital ou reconhecimento facial). |
+| **PDFBox-Android** | Biblioteca para manipulação de arquivos PDF, extração de páginas e gravação de assinaturas nas coordenadas proporcionais. |
+| **Android Canvas API** | Quadro de desenho para captura de assinatura manuscrita com suavização de traço. |
+
+---
+
+## 🔑 Credenciais Pré-Cadastradas para Teste
+
+O banco de dados local inicia pré-populado com contas de demonstração:
 
 | Perfil | Nome | E-mail | Senha | Papel |
 | :--- | :--- | :--- | :--- | :--- |
-| **Administrador** | Admin BestSign | `admin@bestsign.com` | `123456` | Gestão e Envio |
+| **Administrador** | Admin BestSign | `admin@bestsign.com` | `123456` | Gestão e Envio de Documentos |
 | **Signatário 1** | Carlos Eduardo Silva | `carlos@email.com` | `123456` | Contratante |
 | **Signatário 2** | Mariana Costa Souza | `mariana@email.com` | `123456` | Contratado |
 
 ---
 
-## Como Executar o Projeto
+## 🚀 Como Executar o Projeto
 
-1. Abra o **Android Studio**, clique em **Open** e selecione a pasta raiz do projeto `BestSign`.
-2. Aguarde a sincronização do Gradle e execute o aplicativo em um emulador ou dispositivo Android (**API 24+**).
-3. Faça login como **Administrador** (`admin@bestsign.com` / `123456`) para criar documentos, posicionar campos de assinatura sobre o PDF e enviar para os signatários.
-4. Alterne para um **Signatário** (`carlos@email.com` ou `mariana@email.com` / `123456`) para visualizar o campo destacado no PDF e assinar via **Biometria do Android** ou **Desenho Manual na Tela**.
+1. Abra o **Android Studio**, clique em **Open** e selecione a pasta raiz `BestSign`.
+2. Aguarde a sincronização do Gradle e execute o projeto em um emulador ou dispositivo físico com **Android 7.0+ (API 24+)**.
+3. Acesse como **Administrador** (`admin@bestsign.com` / `123456`) para posicionar campos no PDF e enviar aos signatários.
+4. Alterne para um **Signatário** (`carlos@email.com` / `123456`) para testar a assinatura via biometria ou canvas.
